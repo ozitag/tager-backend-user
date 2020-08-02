@@ -5,9 +5,10 @@ namespace OZiTAG\Tager\Backend\User;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Events\AccessTokenCreated;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\Token;
 use Laravel\Passport\Passport;
-use OZiTAG\Tager\Backend\Auth\TagerBackendAuthServiceProvider;
+use OZiTAG\Tager\Backend\Auth\AuthServiceProvider;
 use OZiTAG\Tager\Backend\User\Listeners\UserAuthListener;
 use OZiTAG\Tager\Backend\User\Observers\TokenObserver;
 
@@ -21,7 +22,7 @@ class UserServiceProvider extends EventServiceProvider
 
     public function register()
     {
-        $this->app->register(TagerBackendAuthServiceProvider::class);
+        $this->app->register(AuthServiceProvider::class);
     }
 
 
