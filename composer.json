@@ -1,0 +1,22 @@
+{
+  "name": "ozitag/tager-backend-user",
+  "description": "Base components for tager-user",
+  "license": "MIT",
+  "homepage": "https://github.com/ozitag/tager-backend-user",
+  "authors": [
+    {
+      "name": "Vital Ozierski <v.ozierski@ozitag.com>",
+      "email": "v.ozierski@ozitag.com",
+      "homepage": "https://ozitag.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "ozitag/tager-backend-auth": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "OZiTAG\\Tager\\Backend\\User\\": "src"
+    }
+  }
+}
