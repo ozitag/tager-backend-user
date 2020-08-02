@@ -19,7 +19,7 @@ class CreateTagerUserAuthLogs extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('user_id')
-                ->references('id')->on('users');
+                ->references('id')->on('tager_users');
         });
     }
 
