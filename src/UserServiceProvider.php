@@ -18,6 +18,11 @@ class UserServiceProvider extends EventServiceProvider
         ],
     ];
 
+    public function register()
+    {
+        $this->app->register(\OZiTAG\Tager\Backend\Auth\TagerBackendAuthServiceProvider::class);
+    }
+
 
     /**
      * Bootstrap any application services.

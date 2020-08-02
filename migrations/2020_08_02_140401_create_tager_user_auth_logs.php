@@ -15,12 +15,11 @@ class CreateTagerUserAuthLogs extends Migration
     {
         Schema::create('tager_user_auth_logs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('ip');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('user_id')
-                ->references('id')->on('sers');
+                ->references('id')->on('users');
         });
     }
 

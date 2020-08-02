@@ -13,21 +13,6 @@ class ChangePasswordFeature extends Feature
 {
     public function handle(ChangePasswordRequest $request)
     {
-        $user = Auth::user();
-
-        $check = Hash::check($request->oldPassword, $user->password);
-
-        if (!$check) {
-            throw new HttpResponseException(response()->json([
-                'errors' => [
-                    'oldPassword' => [
-                        'code' => 'INVALID_PASSWORD',
-                        'message' => 'Invalid password'
-                    ]
-                ],
-            ], 400));
-        }
-
         $request->user()->fill([
             'password' => Hash::make($request->newPassword)
         ])->save();

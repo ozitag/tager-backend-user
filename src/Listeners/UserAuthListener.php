@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Request;
 use Laravel\Passport\Events\AccessTokenCreated;
 use Laravel\Passport\Token;
 use Laravel\Passport\TokenRepository;
+use OZiTAG\Tager\Backend\Auth\Scopes\TokenProviderScope;
 use OZiTAG\Tager\Backend\User\Repositories\UserAuthLogRepository;
 
 class UserAuthListener implements ShouldQueue
@@ -33,9 +34,9 @@ class UserAuthListener implements ShouldQueue
      * @param TokenRepository $repository
      * @return void
      */
-    public function handle(AccessTokenCreated $event, TokenRepository $repository)
+    public function handle(AccessTokenCreated $event)
     {
-        $token = Token::withoutGlobalScope()->whereId($event->tokenId)->first();
+        $token = Token::withoutGlobalScope(TokenProviderScope::class)->whereId($event->tokenId)->first();
         if(!$token || $token->provider !== 'users') {
             return;
         }

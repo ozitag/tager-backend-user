@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAuthLog extends Model
 {
-    protected $table = 'tager_users_auth_logs';
+    protected $table = 'tager_user_auth_logs';
 
     protected $fillable = [
         'ip',
