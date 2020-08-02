@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, SoftDeletes;
 
-    protected $table = 'tager_administrators';
+    protected $table = 'tager_users';
 
     /**
      * The attributes that are mass assignable.

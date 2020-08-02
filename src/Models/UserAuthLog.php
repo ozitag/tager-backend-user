@@ -6,17 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAuthLog extends Model
 {
-    const UPDATED_AT = null;
+    protected $table = 'tager_users_auth_logs';
 
-    protected $table = 'tager_administrator_auth_logs';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'ip',
-        'administrator_id'
+        'user_id'
     ];
+
+    protected function user() {
+        return $this->belongsTo(User::class);
+    }
 }
