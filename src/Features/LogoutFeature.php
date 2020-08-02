@@ -10,7 +10,7 @@ class LogoutFeature extends Feature
 {
     public function handle()
     {
-        Auth::user()->token()->revoke();
+        $this->user()->token()->revoke();
         return new SuccessResource();
     }
 }

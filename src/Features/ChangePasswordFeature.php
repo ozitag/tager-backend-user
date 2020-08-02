@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
+use OZiTAG\Tager\Backend\User\Repositories\UserRepository;
 use OZiTAG\Tager\Backend\User\Requests\ChangePasswordRequest;
 
 class ChangePasswordFeature extends Feature
 {
-    public function handle(ChangePasswordRequest $request)
+    public function handle(ChangePasswordRequest $request, UserRepository $repository)
     {
-        $request->user()->fill([
+        $repository->setById($this->user()->id);
+
+        $repository->fillAndSave([
             'password' => Hash::make($request->newPassword)
-        ])->save();
+        ]);
 
         return new SuccessResource();
     }

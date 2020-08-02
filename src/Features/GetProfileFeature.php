@@ -10,6 +10,6 @@ class GetProfileFeature extends Feature
 {
     public function handle()
     {
-        return new ProfileResource(Auth::user());
+        return new ProfileResource($this->user());
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Events\AccessTokenCreated;
 use Laravel\Passport\Token;
 use Laravel\Passport\Passport;
+use OZiTAG\Tager\Backend\Auth\TagerBackendAuthServiceProvider;
 use OZiTAG\Tager\Backend\User\Listeners\UserAuthListener;
 use OZiTAG\Tager\Backend\User\Observers\TokenObserver;
 
@@ -20,7 +21,7 @@ class UserServiceProvider extends EventServiceProvider
 
     public function register()
     {
-        $this->app->register(\OZiTAG\Tager\Backend\Auth\TagerBackendAuthServiceProvider::class);
+        $this->app->register(TagerBackendAuthServiceProvider::class);
     }
 
 
@@ -42,5 +43,8 @@ class UserServiceProvider extends EventServiceProvider
         }
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        Route::post('/oauth/user/token', [AccessTokenController::class, 'issueToken'])
+            ->middleware(['passport:users']);
     }
 }
