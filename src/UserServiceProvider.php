@@ -39,13 +39,10 @@ class UserServiceProvider extends EventServiceProvider
 
         if (is_file(base_path('routes/users.php'))) {
             Route::prefix('admin')
-                ->middleware(['provider:users', 'auth:api'])
+                ->middleware(['passport:users', 'auth:api'])
                 ->group(base_path('routes/users.php'));
         }
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
-
-        Route::post('/oauth/user/token', [AccessTokenController::class, 'issueToken'])
-            ->middleware(['passport:users']);
     }
 }
