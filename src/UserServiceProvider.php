@@ -38,9 +38,15 @@ class UserServiceProvider extends EventServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
         if (is_file(base_path('routes/users.php'))) {
-            Route::prefix('admin')
+            Route::prefix('users')
                 ->middleware(['passport:users', 'auth:api'])
                 ->group(base_path('routes/users.php'));
+        }
+
+        if (is_file(base_path('routes/user.php'))) {
+            Route::prefix('user')
+                ->middleware(['passport:users', 'auth:api'])
+                ->group(base_path('routes/user.php'));
         }
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
