@@ -11,4 +11,14 @@ class UserRepository extends EloquentRepository
     {
         parent::__construct($model);
     }
+
+    /**
+     * @param string $email
+     * @return User|null
+     */
+    public function findByEmail(string $email): ?User {
+        return $this->model
+            ->whereEmail($email)
+            ->first();
+    }
 }
