@@ -9,7 +9,7 @@ class PasswordRestoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|exists:tager_users,email'
+            'email' => 'required|email'
         ];
     }
 }

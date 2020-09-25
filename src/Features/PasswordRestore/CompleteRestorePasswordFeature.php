@@ -2,10 +2,8 @@
 
 namespace OZiTAG\Tager\Backend\User\Features\PasswordRestore;
 
-use Illuminate\Support\Facades\Validator;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
-use OZiTAG\Tager\Backend\User\Events\PasswordRestored;
 use OZiTAG\Tager\Backend\User\Jobs\PasswordRestore\GetTokenJob;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 use OZiTAG\Tager\Backend\User\Operations\RestoreUserPasswordOperation;

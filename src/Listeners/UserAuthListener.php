@@ -37,9 +37,11 @@ class UserAuthListener implements ShouldQueue
     public function handle(AccessTokenCreated $event)
     {
         $token = Token::withoutGlobalScope(TokenProviderScope::class)->whereId($event->tokenId)->first();
-        if(!$token || $token->provider !== 'users') {
+
+        if (!$token || $token->provider !== 'users') {
             return;
         }
+
         $this->repository->fillAndSave([
             'user_id' => $event->userId,
             'ip' => Request::ip() ?? '-'

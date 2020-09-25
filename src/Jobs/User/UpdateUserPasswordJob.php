@@ -5,11 +5,9 @@ namespace OZiTAG\Tager\Backend\User\Jobs\User;
 use Illuminate\Support\Facades\Hash;
 use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
-use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreTokenStatuses;
 use OZiTAG\Tager\Backend\User\Repositories\UserRepository;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CheckRestoreTokenRequest;
-
 
 class UpdateUserPasswordJob extends Job
 {
@@ -28,18 +26,19 @@ class UpdateUserPasswordJob extends Job
     }
 
     /**
-     * @param CheckRestoreTokenRequest $request
-     * @param UserResetTokenRepository $repository
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|SuccessResource
+     * @param UserRepository $repository
+     * @throws \Exception
      */
     public function handle(UserRepository $repository)
     {
         $user = $repository->setById($this->userId);
-        if(!$user) {
+
+        if (!$user) {
             throw new \Exception('');
         }
+
         $repository->fillAndSave([
-            'password' =>  Hash::make($this->password)
+            'password' => Hash::make($this->password)
         ]);
     }
 

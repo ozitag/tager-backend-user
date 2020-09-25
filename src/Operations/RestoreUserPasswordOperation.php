@@ -8,7 +8,6 @@ use OZiTAG\Tager\Backend\User\Jobs\User\UpdateUserPasswordJob;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 
-
 class RestoreUserPasswordOperation extends Operation
 {
     protected UserResetToken $token;

@@ -2,7 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\User\Features;
 
-use Illuminate\Support\Facades\Auth;
 use OZiTAG\Tager\Backend\User\Repositories\UserRepository;
 use OZiTAG\Tager\Backend\User\Requests\UpdateProfileRequest;
 use OZiTAG\Tager\Backend\User\Resources\ProfileResource;

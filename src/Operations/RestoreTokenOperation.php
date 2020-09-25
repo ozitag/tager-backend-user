@@ -23,10 +23,7 @@ class RestoreTokenOperation extends Operation
         $this->user = $user;
     }
 
-    /**
-     * @param UserResetTokenRepository $repository
-     */
-    public function handle(UserResetTokenRepository $repository)
+    public function handle()
     {
         $this->run(RevokeUserResetTokensJob::class, [
             'userId' => $this->user->id
