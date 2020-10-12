@@ -8,7 +8,6 @@ use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreTokenStatuses;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CheckRestoreTokenRequest;
 
-
 class GetTokenJob extends Job
 {
     protected string $token;

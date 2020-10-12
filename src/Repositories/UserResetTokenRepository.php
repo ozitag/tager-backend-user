@@ -2,12 +2,8 @@
 
 namespace OZiTAG\Tager\Backend\User\Repositories;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreTokenStatuses;
-use OZiTAG\Tager\Backend\User\Enums\TokenStatuses;
-use OZiTAG\Tager\Backend\User\Models\User;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 
 class UserResetTokenRepository extends EloquentRepository

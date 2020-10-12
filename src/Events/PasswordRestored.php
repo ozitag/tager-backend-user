@@ -1,9 +1,6 @@
 <?php
+
 namespace OZiTAG\Tager\Backend\User\Events;
-
-
-use OZiTAG\Tager\Backend\User\Models\User;
-use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 
 class PasswordRestored
 {
@@ -21,7 +18,8 @@ class PasswordRestored
     /**
      * @return int
      */
-    public function getUserId(): int {
+    public function getUserId(): int
+    {
         return $this->userId;
     }
 }

@@ -1,9 +1,8 @@
 <?php
+
 namespace OZiTAG\Tager\Backend\User\Validation\Rules;
 
-
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

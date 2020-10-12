@@ -2,8 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\User\Features;
 
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;

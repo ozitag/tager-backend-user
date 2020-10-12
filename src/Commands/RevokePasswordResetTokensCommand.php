@@ -8,7 +8,7 @@ use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 
 class RevokePasswordResetTokensCommand extends Command
 {
-    public $signature = 'revoke_password_reset_tokens';
+    public $signature = 'tager:revoke_password_reset_tokens';
 
     public function handle(UserResetTokenRepository $repository)
     {

@@ -1,6 +1,6 @@
 <?php
-namespace OZiTAG\Tager\Backend\User\Events;
 
+namespace OZiTAG\Tager\Backend\User\Events;
 
 use OZiTAG\Tager\Backend\User\Models\User;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
