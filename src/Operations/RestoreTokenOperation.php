@@ -36,6 +36,8 @@ class RestoreTokenOperation extends Operation
             'userId' => $this->user->id
         ]);
 
-        event(new PasswordRestoreRequested($this->user, $token));
+        event(new PasswordRestoreRequested(
+            $this->user->id, $this->user->email, $token->token
+        ));
     }
 }

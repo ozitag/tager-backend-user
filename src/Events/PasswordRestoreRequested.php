@@ -7,38 +7,41 @@ use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 
 class PasswordRestoreRequested
 {
-    public User $user;
-    public UserResetToken $token;
+    public int $userId;
+    public string $userEmail;
+    public string $token;
 
     /**
      * PasswordRestoreRequested constructor.
-     * @param User $user
-     * @param UserResetToken $token
+     * @param int $userId
+     * @param string $userEmail
+     * @param string $token
      */
-    public function __construct(User $user, UserResetToken $token)
+    public function __construct(int $userId, string $userEmail, string $token)
     {
-        $this->user = $user;
+        $this->userId = $userId;
+        $this->userEmail = $userEmail;
         $this->token = $token;
     }
 
     /**
-     * @return UserResetToken
+     * @return string
      */
-    public function getToken(): UserResetToken {
-        return $this->token->refresh();
+    public function getToken(): string {
+        return $this->token;
     }
 
     /**
      * @return int
      */
     public function getUserId(): int {
-        return $this->user->id;
+        return $this->userId;
     }
 
     /**
-     * @return User
+     * @return string
      */
-    public function getUser(): User {
-        return $this->user;
+    public function getUserEmail(): string {
+        return $this->userEmail;
     }
 }
