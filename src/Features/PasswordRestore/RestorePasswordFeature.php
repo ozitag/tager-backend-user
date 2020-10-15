@@ -21,9 +21,11 @@ class RestorePasswordFeature extends Feature
             $request->get('email')
         );
 
-        $this->run(RestoreTokenOperation::class, [
-            'user' => $user
-        ]);
+        if ($user) {
+            $this->run(RestoreTokenOperation::class, [
+                'user' => $user
+            ]);
+        }
 
         return new SuccessResource();
     }

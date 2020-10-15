@@ -12,19 +12,23 @@ use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 
 class RestoreTokenOperation extends Operation
 {
-    protected User $user;
+    protected ?User $user;
 
     /**
      * RevokeUserResetTokensJob constructor.
-     * @param User $userId
+     * @param User|null $user
      */
-    public function __construct(User $user)
+    public function __construct(?User $user = null)
     {
         $this->user = $user;
     }
 
     public function handle()
     {
+        if (!$this->user) {
+            return;
+        }
+
         $this->run(RevokeUserResetTokensJob::class, [
             'userId' => $this->user->id
         ]);
