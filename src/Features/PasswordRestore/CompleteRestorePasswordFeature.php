@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\User\Features\PasswordRestore;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
 use OZiTAG\Tager\Backend\User\Jobs\PasswordRestore\GetTokenJob;
@@ -21,9 +22,11 @@ class CompleteRestorePasswordFeature extends Feature
             'token' => $request->get('token')
         ]);
 
-        if(!($token instanceof UserResetToken)) {
+        if (!($token instanceof UserResetToken)) {
             return $token;
         }
+
+        $user = $token->user;
 
         $this->validatePassword($request);
 
@@ -32,15 +35,18 @@ class CompleteRestorePasswordFeature extends Feature
             'password' => $request->get('password')
         ]);
 
-        return new SuccessResource();
+        return new JsonResource([
+            'email' => $user->email
+        ]);
     }
 
     /**
      * @param CompletePasswordRestoreRequest $request
      */
-    protected function validatePassword(CompletePasswordRestoreRequest $request) {
+    protected function validatePassword(CompletePasswordRestoreRequest $request)
+    {
         $rules = config('tager-users.restore.password_validation_rules');
-        if(!$rules) return;
+        if (!$rules) return;
         $request->validate([
             'password' => $rules,
         ]);
