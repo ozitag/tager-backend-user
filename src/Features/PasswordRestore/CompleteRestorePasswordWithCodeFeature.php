@@ -4,20 +4,15 @@ namespace OZiTAG\Tager\Backend\User\Features\PasswordRestore;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
-use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
 use OZiTAG\Tager\Backend\User\Jobs\PasswordRestore\GetTokenJob;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 use OZiTAG\Tager\Backend\User\Operations\RestoreUserPasswordOperation;
-use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CompletePasswordRestoreRequest;
+use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CompletePasswordRestoreWithCodeRequest;
 use OZiTAG\Tager\Backend\User\Utils\TagerUserConfig;
 
 class CompleteRestorePasswordWithCodeFeature extends Feature
 {
-    /**
-     * @param CompletePasswordRestoreRequest $request
-     * @return mixed|SuccessResource
-     */
-    public function handle(CompletePasswordRestoreRequest $request)
+    public function handle(CompletePasswordRestoreWithCodeRequest $request)
     {
         $token = $this->run(GetTokenJob::class, [
             'token' => $request->token,
@@ -42,10 +37,7 @@ class CompleteRestorePasswordWithCodeFeature extends Feature
         ]);
     }
 
-    /**
-     * @param CompletePasswordRestoreRequest $request
-     */
-    protected function validatePassword(CompletePasswordRestoreRequest $request)
+    protected function validatePassword(CompletePasswordRestoreWithCodeRequest $request)
     {
         $rules = TagerUserConfig::getValidationRules();
         if (!$rules) return;

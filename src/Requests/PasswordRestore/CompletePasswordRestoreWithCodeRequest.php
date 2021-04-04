@@ -12,7 +12,7 @@ use OZiTAG\Tager\Backend\Core\Http\FormRequest;
  * @property string $password
  * @property string $code
  */
-class CompletePasswordRestoreRequest extends FormRequest
+class CompletePasswordRestoreWithCodeRequest extends FormRequest
 {
     public function rules()
     {
