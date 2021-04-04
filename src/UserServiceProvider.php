@@ -53,7 +53,7 @@ class UserServiceProvider extends ServiceProvider
         $this->bootCommands();
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/tager-users.php', 'tager-users'
+            __DIR__ . '/../config/tager-user.php', 'tager-user'
         );
 
         $this->registerValidationRules($validator);
