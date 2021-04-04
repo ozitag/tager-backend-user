@@ -21,4 +21,9 @@ class TagerUserConfig
 
         return $result;
     }
+
+    public static function getValidationRules(): array
+    {
+        return self::config('restore.password_validation_rules', []);
+    }
 }

@@ -9,6 +9,7 @@ use OZiTAG\Tager\Backend\User\Jobs\PasswordRestore\GetTokenJob;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 use OZiTAG\Tager\Backend\User\Operations\RestoreUserPasswordOperation;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CompletePasswordRestoreRequest;
+use OZiTAG\Tager\Backend\User\Utils\TagerUserConfig;
 
 class CompleteRestorePasswordWithCodeFeature extends Feature
 {
@@ -46,7 +47,7 @@ class CompleteRestorePasswordWithCodeFeature extends Feature
      */
     protected function validatePassword(CompletePasswordRestoreRequest $request)
     {
-        $rules = config('tager-users.restore.password_validation_rules');
+        $rules = TagerUserConfig::getValidationRules();
         if (!$rules) return;
 
         $request->validate([
