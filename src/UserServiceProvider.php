@@ -25,7 +25,7 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->app->register(AuthServiceProvider::class);
     }
-    
+
     /**
      * Bootstrap any application services.
      *
@@ -47,6 +47,7 @@ class UserServiceProvider extends ServiceProvider
                 ->group(base_path('routes/user.php'));
         }
 
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tager-user');
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
         $this->bootCommands();
@@ -76,15 +77,15 @@ class UserServiceProvider extends ServiceProvider
     protected function registerValidationRules(Factory $validator) {
         $validator->extend(PasswordValidationRules::CASE_DIFF, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/(\p{Ll}+.*\p{Lu})|(\p{Lu}+.*\p{Ll})/u', $value);
-        }, 'The :attribute must include both upper and lower case letters.');
+        }, __('tager-user::messages.rule_case_diff'));
         $validator->extend(PasswordValidationRules::LETTERS, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\pL/', $value);
-        }, 'The :attribute must include at least one letter.');
+        }, __('tager-user::messages.rule_letters'));
         $validator->extend(PasswordValidationRules::NUMBERS, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\pN/', $value);
-        }, 'The :attribute must include at least one number.');
+        }, __('tager-user::messages.rule_numbers'));
         $validator->extend(PasswordValidationRules::SYMBOLS, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\p{Z}|\p{S}|\p{P}/', $value);
-        }, 'The :attribute must include at least one symbol.');
+        }, __('tager-user::messages.rule_symbols'));
     }
 }

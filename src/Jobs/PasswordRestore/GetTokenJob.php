@@ -7,18 +7,23 @@ use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
 use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreTokenStatuses;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CheckRestoreTokenRequest;
+use OZiTAG\Tager\Backend\Validation\Facades\Validation;
 
 class GetTokenJob extends Job
 {
     protected string $token;
 
+    protected ?string $code;
+
     /**
      * RevokeUserResetTokensJob constructor.
      * @param string $token
      */
-    public function __construct(string $token)
+    public function __construct(string $token, ?string $code = null)
     {
         $this->token = $token;
+
+        $this->code = $code;
     }
 
     /**
@@ -36,6 +41,11 @@ class GetTokenJob extends Job
 
         switch ($token->status) {
             case PasswordRestoreTokenStatuses::CREATED:
+
+                if ($token->code != $this->code) {
+                    Validation::throw('code', __('tager-user::messages.invalid_code'));
+                }
+
                 return $token;
             case PasswordRestoreTokenStatuses::SUCCESS:
                 return $this->fail('TOKEN_ALREADY_USED', 'The password has already changed');

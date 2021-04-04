@@ -9,13 +9,15 @@ use OZiTAG\Tager\Backend\Core\Http\FormRequest;
  * @package OZiTAG\Tager\Backend\User\Requests\PasswordRestore
  *
  * @property string $token
+ * @property string $code
  */
-class CheckRestoreTokenRequest extends FormRequest
+class CheckRestoreTokenWithCodeRequest extends FormRequest
 {
     public function rules()
     {
         return [
             'token' => 'required|string',
+            'code' => 'required|string',
         ];
     }
 }

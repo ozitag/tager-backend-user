@@ -9,6 +9,7 @@ return [
             PasswordValidationRules::LETTERS,
             PasswordValidationRules::NUMBERS,
             PasswordValidationRules::CASE_DIFF,
-        ]
+        ],
+        ''
     ],
 ];

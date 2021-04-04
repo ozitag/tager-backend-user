@@ -7,38 +7,33 @@ class PasswordRestoreRequested
     public int $userId;
     public string $userEmail;
     public string $token;
+    public ?string $code;
 
-    /**
-     * PasswordRestoreRequested constructor.
-     * @param int $userId
-     * @param string $userEmail
-     * @param string $token
-     */
-    public function __construct(int $userId, string $userEmail, string $token)
+    public function __construct(int $userId, string $userEmail, string $token, ?string $code = null)
     {
         $this->userId = $userId;
         $this->userEmail = $userEmail;
         $this->token = $token;
+        $this->code = $code;
     }
 
-    /**
-     * @return string
-     */
-    public function getToken(): string {
+    public function getToken(): string
+    {
         return $this->token;
     }
 
-    /**
-     * @return int
-     */
-    public function getUserId(): int {
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function getUserId(): int
+    {
         return $this->userId;
     }
 
-    /**
-     * @return string
-     */
-    public function getUserEmail(): string {
+    public function getUserEmail(): string
+    {
         return $this->userEmail;
     }
 }

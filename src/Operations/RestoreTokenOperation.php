@@ -26,7 +26,7 @@ class RestoreTokenOperation extends Operation
     public function handle()
     {
         if (!$this->user) {
-            return;
+            return null;
         }
 
         $this->run(RevokeUserResetTokensJob::class, [
@@ -38,7 +38,10 @@ class RestoreTokenOperation extends Operation
         ]);
 
         event(new PasswordRestoreRequested(
-            $this->user->id, $this->user->email, $token->token
+            $this->user->id, $this->user->email, 
+            $token->token, $token->code
         ));
+
+        return $token;
     }
 }
