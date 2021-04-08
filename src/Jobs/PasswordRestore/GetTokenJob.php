@@ -4,9 +4,11 @@ namespace OZiTAG\Tager\Backend\User\Jobs\PasswordRestore;
 
 use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
+use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreMode;
 use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreTokenStatuses;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CheckRestoreTokenRequest;
+use OZiTAG\Tager\Backend\User\Utils\TagerUserConfig;
 use OZiTAG\Tager\Backend\Validation\Facades\Validation;
 
 class GetTokenJob extends Job
@@ -15,10 +17,6 @@ class GetTokenJob extends Job
 
     protected ?string $code;
 
-    /**
-     * RevokeUserResetTokensJob constructor.
-     * @param string $token
-     */
     public function __construct(string $token, ?string $code = null)
     {
         $this->token = $token;
@@ -26,11 +24,7 @@ class GetTokenJob extends Job
         $this->code = $code;
     }
 
-    /**
-     * @param CheckRestoreTokenRequest $request
-     * @param UserResetTokenRepository $repository
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|SuccessResource
-     */
+
     public function handle(CheckRestoreTokenRequest $request, UserResetTokenRepository $repository)
     {
         $token = $repository->findToken($request->get('token'));
@@ -42,8 +36,10 @@ class GetTokenJob extends Job
         switch ($token->status) {
             case PasswordRestoreTokenStatuses::CREATED:
 
-                if ($token->code != $this->code) {
-                    Validation::throw('code', __('tager-user::messages.invalid_code'));
+                if (TagerUserConfig::getRestoreMode() === PasswordRestoreMode::Code) {
+                    if ($token->code != $this->code) {
+                        Validation::throw('code', __('tager-user::messages.invalid_code'));
+                    }
                 }
 
                 return $token;

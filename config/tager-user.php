@@ -10,6 +10,5 @@ return [
             PasswordValidationRules::NUMBERS,
             PasswordValidationRules::CASE_DIFF,
         ],
-        ''
     ],
 ];
