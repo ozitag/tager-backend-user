@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\User\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,4 +24,13 @@ class User extends Authenticatable
         'email',
         'password'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('id', 'desc');
+        });
+    }
 }
