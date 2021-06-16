@@ -43,7 +43,7 @@ class CreateUserJob extends Job
             'role_id' => $this->role
         ]);
 
-        event(new UserCreated($model->id));
+        event(new UserCreated($model->id, $this->password));
 
         return $model;
     }

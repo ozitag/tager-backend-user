@@ -8,16 +8,25 @@ use OZiTAG\Tager\Backend\User\Repositories\UserRepository;
 
 class UserCreated
 {
-    public int $user;
+    protected int $user;
 
-    public function __construct(int $userId)
+    protected ?string $password = null;
+
+    public function __construct(int $userId, ?string $password = null)
     {
         $this->userId = $userId;
+
+        $this->password = $password;
     }
 
     public function getUserId(): int
     {
         return $this->userId;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
     }
 
     public function getUser(): ?User
