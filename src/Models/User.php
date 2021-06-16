@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use OZiTAG\Tager\Backend\Auth\Contracts\UserMaybeBlockedContract;
 
 /**
  * Class User
@@ -19,7 +20,7 @@ use Laravel\Passport\HasApiTokens;
  * @property int $role_id
  * @property boolean $blocked
  */
-class User extends Authenticatable
+class User extends Authenticatable implements UserMaybeBlockedContract
 {
     use Notifiable, HasApiTokens, SoftDeletes;
 
@@ -45,5 +46,10 @@ class User extends Authenticatable
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('id', 'desc');
         });
+    }
+
+    public function isBlocked(): bool
+    {
+        return $this->blocked;
     }
 }
