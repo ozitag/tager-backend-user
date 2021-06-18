@@ -8,7 +8,7 @@ use Illuminate\Validation\Factory;
 use Laravel\Passport\Events\AccessTokenCreated;
 use OZiTAG\Tager\Backend\Auth\AuthServiceProvider;
 use OZiTAG\Tager\Backend\User\Commands\RevokePasswordResetTokensCommand;
-use OZiTAG\Tager\Backend\User\Enums\PasswordValidationRules;
+use OZiTAG\Tager\Backend\User\Enums\PasswordValidationRule;
 use OZiTAG\Tager\Backend\User\Listeners\UserAuthListener;
 use OZiTAG\Tager\Backend\User\Observers\TokenObserver;
 use Illuminate\Support\ServiceProvider;
@@ -26,12 +26,22 @@ class UserServiceProvider extends ServiceProvider
         $this->app->register(AuthServiceProvider::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot(Factory $validator)
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/tager-user.php', 'tager-user'
+        );
+
+        $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tager-user');
+
+        $this->loadRoutes();
+
+        $this->registerValidationRules($validator);
+    }
+
+    protected function loadRoutes()
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
@@ -46,20 +56,10 @@ class UserServiceProvider extends ServiceProvider
                 ->middleware(['passport:users', 'auth:api'])
                 ->group(base_path('routes/user.php'));
         }
-
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tager-user');
-        $this->loadMigrationsFrom(__DIR__ . '/../migrations');
-
-        $this->bootCommands();
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/tager-user.php', 'tager-user'
-        );
-
-        $this->registerValidationRules($validator);
     }
 
-    protected function bootCommands() {
+    protected function bootCommands()
+    {
         if ($this->app->runningInConsole()) {
             $this->commands([
                 RevokePasswordResetTokensCommand::class,
@@ -71,20 +71,21 @@ class UserServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * @param Factory $validator
-     */
-    protected function registerValidationRules(Factory $validator) {
-        $validator->extend(PasswordValidationRules::CASE_DIFF, function ($attribute, $value, $parameters, $validator) {
+    protected function registerValidationRules(Factory $validator)
+    {
+        $validator->extend(PasswordValidationRule::HasCaseDiff, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/(\p{Ll}+.*\p{Lu})|(\p{Lu}+.*\p{Ll})/u', $value);
         }, __('tager-user::messages.rule_case_diff'));
-        $validator->extend(PasswordValidationRules::LETTERS, function ($attribute, $value, $parameters, $validator) {
+
+        $validator->extend(PasswordValidationRule::HasLetters, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\pL/', $value);
         }, __('tager-user::messages.rule_letters'));
-        $validator->extend(PasswordValidationRules::NUMBERS, function ($attribute, $value, $parameters, $validator) {
+
+        $validator->extend(PasswordValidationRule::HasNumbers, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\pN/', $value);
         }, __('tager-user::messages.rule_numbers'));
-        $validator->extend(PasswordValidationRules::SYMBOLS, function ($attribute, $value, $parameters, $validator) {
+
+        $validator->extend(PasswordValidationRule::HasSymbols, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\p{Z}|\p{S}|\p{P}/', $value);
         }, __('tager-user::messages.rule_symbols'));
     }

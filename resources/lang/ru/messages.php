@@ -6,5 +6,6 @@ return [
     'rule_letters' => 'Должно включать минимум одну букву',
     'rule_numbers' => 'Должно включать минимум одну цифру',
     'rule_symbols' => 'Должно включать минимум один символ',
-    'email_is_busy' => 'E-Mail занят'
+    'email_is_busy' => 'E-Mail занят',
+    'password_policy_error' => 'Пароль слишком простой'
 ];

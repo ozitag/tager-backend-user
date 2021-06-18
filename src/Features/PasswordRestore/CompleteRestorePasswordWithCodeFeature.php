@@ -25,8 +25,6 @@ class CompleteRestorePasswordWithCodeFeature extends Feature
 
         $user = $token->user;
 
-        $this->validatePassword($request);
-
         $this->run(RestoreUserPasswordOperation::class, [
             'token' => $token,
             'password' => $request->password
@@ -34,16 +32,6 @@ class CompleteRestorePasswordWithCodeFeature extends Feature
 
         return new JsonResource([
             'email' => $user->email
-        ]);
-    }
-
-    protected function validatePassword(CompletePasswordRestoreWithCodeRequest $request)
-    {
-        $rules = TagerUserConfig::getValidationRules();
-        if (!$rules) return;
-
-        $request->validate([
-            'password' => $rules,
         ]);
     }
 }
