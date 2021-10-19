@@ -15,12 +15,6 @@ use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
 {
-    protected $listen = [
-        AccessTokenCreated::class => [
-            UserAuthListener::class
-        ],
-    ];
-
     public function register()
     {
         $this->app->register(AuthServiceProvider::class);
