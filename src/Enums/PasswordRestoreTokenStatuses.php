@@ -2,11 +2,9 @@
 
 namespace OZiTAG\Tager\Backend\User\Enums;
 
-use OZiTAG\Tager\Backend\Core\Enums\Enum;
-
-class PasswordRestoreTokenStatuses extends Enum
+enum PasswordRestoreTokenStatuses: string
 {
-    const CREATED = 'CREATED';
-    const EXPIRED = 'EXPIRED';
-    const SUCCESS = 'SUCCESS';
+    case CREATED = 'CREATED';
+    case EXPIRED = 'EXPIRED';
+    case SUCCESS = 'SUCCESS';
 }

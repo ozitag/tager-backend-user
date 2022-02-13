@@ -15,7 +15,7 @@ class TagerUserConfig
     {
         $result = self::config('restore.mode', PasswordRestoreMode::Link);
 
-        if (!in_array($result, PasswordRestoreMode::getValues())) {
+        if (!in_array($result, PasswordRestoreMode::cases())) {
             throw new \Exception('Invalid Restore Mode');
         }
 

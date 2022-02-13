@@ -7,7 +7,7 @@ use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
 use OZiTAG\Tager\Backend\User\Jobs\PasswordRestore\GetTokenJob;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CheckRestoreTokenWithCodeRequest;
-use OZiTAG\Tager\Backend\Validation\Facades\Validation;
+use OZiTAG\Tager\Backend\Core\Validation\Facades\Validation;
 
 class CheckPasswordResetTokenWithCodeFeature extends Feature
 {

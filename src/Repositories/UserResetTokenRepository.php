@@ -17,12 +17,12 @@ class UserResetTokenRepository extends EloquentRepository
      * @param int $userId
      * @return mixed
      */
-    public function markExpiredByUserId(int $userId) {
-        return $this->model
-            ->whereStatus(PasswordRestoreTokenStatuses::CREATED)
+    public function markExpiredByUserId(int $userId)
+    {
+        return $this->model->whereStatus(PasswordRestoreTokenStatuses::CREATED->value)
             ->whereUserId($userId)
             ->update([
-                'status' => PasswordRestoreTokenStatuses::EXPIRED
+                'status' => PasswordRestoreTokenStatuses::EXPIRED->value
             ]);
     }
 
@@ -30,7 +30,8 @@ class UserResetTokenRepository extends EloquentRepository
      * @param int $userId
      * @return mixed
      */
-    public function findToken(string $token) {
+    public function findToken(string $token)
+    {
         return $this->model
             ->whereToken($token)
             ->first();
@@ -40,20 +41,21 @@ class UserResetTokenRepository extends EloquentRepository
      * @param int $userId
      * @return mixed
      */
-    public function revoke() {
-        return $this->model
-            ->update([
-                'status' => PasswordRestoreTokenStatuses::SUCCESS
-            ]);
+    public function revoke()
+    {
+        return $this->model->update([
+            'status' => PasswordRestoreTokenStatuses::SUCCESS->value
+        ]);
     }
 
     /**
      * @param int $userId
      * @return mixed
      */
-    public function findActiveToken(string $token) {
+    public function findActiveToken(string $token)
+    {
         return $this->model
-            ->whereStatus(PasswordRestoreTokenStatuses::CREATED)
+            ->whereStatus(PasswordRestoreTokenStatuses::CREATED->value)
             ->whereToken($token)
             ->first();
     }
@@ -62,12 +64,13 @@ class UserResetTokenRepository extends EloquentRepository
      * @param string $date
      * @return mixed
      */
-    public function markOutdatedAsExpired(string $date) {
+    public function markOutdatedAsExpired(string $date)
+    {
         return $this->model
-            ->whereStatus(PasswordRestoreTokenStatuses::CREATED)
+            ->whereStatus(PasswordRestoreTokenStatuses::CREATED->value)
             ->where('created_at', '<', $date)
             ->update([
-                'status' => PasswordRestoreTokenStatuses::EXPIRED
+                'status' => PasswordRestoreTokenStatuses::EXPIRED->value
             ]);
     }
 }

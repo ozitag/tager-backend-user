@@ -2,10 +2,8 @@
 
 namespace OZiTAG\Tager\Backend\User\Enums;
 
-use OZiTAG\Tager\Backend\Core\Enums\Enum;
-
-class PasswordRestoreMode extends Enum
+enum PasswordRestoreMode: string
 {
-    const Link = 'LINK';
-    const Code = 'CODE';
+    case Link = 'LINK';
+    case Code = 'CODE';
 }

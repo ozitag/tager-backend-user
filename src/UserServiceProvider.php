@@ -5,12 +5,9 @@ namespace OZiTAG\Tager\Backend\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Factory;
-use Laravel\Passport\Events\AccessTokenCreated;
 use OZiTAG\Tager\Backend\Auth\AuthServiceProvider;
 use OZiTAG\Tager\Backend\User\Commands\RevokePasswordResetTokensCommand;
 use OZiTAG\Tager\Backend\User\Enums\PasswordValidationRule;
-use OZiTAG\Tager\Backend\User\Listeners\UserAuthListener;
-use OZiTAG\Tager\Backend\User\Observers\TokenObserver;
 use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
@@ -67,19 +64,19 @@ class UserServiceProvider extends ServiceProvider
 
     protected function registerValidationRules(Factory $validator)
     {
-        $validator->extend(PasswordValidationRule::HasCaseDiff, function ($attribute, $value, $parameters, $validator) {
+        $validator->extend(PasswordValidationRule::HasCaseDiff->value, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/(\p{Ll}+.*\p{Lu})|(\p{Lu}+.*\p{Ll})/u', $value);
         }, __('tager-user::messages.rule_case_diff'));
 
-        $validator->extend(PasswordValidationRule::HasLetters, function ($attribute, $value, $parameters, $validator) {
+        $validator->extend(PasswordValidationRule::HasLetters->value, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\pL/', $value);
         }, __('tager-user::messages.rule_letters'));
 
-        $validator->extend(PasswordValidationRule::HasNumbers, function ($attribute, $value, $parameters, $validator) {
+        $validator->extend(PasswordValidationRule::HasNumbers->value, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\pN/', $value);
         }, __('tager-user::messages.rule_numbers'));
 
-        $validator->extend(PasswordValidationRule::HasSymbols, function ($attribute, $value, $parameters, $validator) {
+        $validator->extend(PasswordValidationRule::HasSymbols->value, function ($attribute, $value, $parameters, $validator) {
             return preg_match('/\p{Z}|\p{S}|\p{P}/', $value);
         }, __('tager-user::messages.rule_symbols'));
     }

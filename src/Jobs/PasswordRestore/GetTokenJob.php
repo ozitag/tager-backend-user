@@ -3,13 +3,12 @@
 namespace OZiTAG\Tager\Backend\User\Jobs\PasswordRestore;
 
 use OZiTAG\Tager\Backend\Core\Jobs\Job;
-use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
 use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreMode;
 use OZiTAG\Tager\Backend\User\Enums\PasswordRestoreTokenStatuses;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CheckRestoreTokenRequest;
 use OZiTAG\Tager\Backend\User\Utils\TagerUserConfig;
-use OZiTAG\Tager\Backend\Validation\Facades\Validation;
+use OZiTAG\Tager\Backend\Core\Validation\Facades\Validation;
 
 class GetTokenJob extends Job
 {
@@ -34,7 +33,7 @@ class GetTokenJob extends Job
         }
 
         switch ($token->status) {
-            case PasswordRestoreTokenStatuses::CREATED:
+            case PasswordRestoreTokenStatuses::CREATED->value:
 
                 if (TagerUserConfig::getRestoreMode() === PasswordRestoreMode::Code) {
                     if ($token->code != $this->code) {
@@ -43,7 +42,7 @@ class GetTokenJob extends Job
                 }
 
                 return $token;
-            case PasswordRestoreTokenStatuses::SUCCESS:
+            case PasswordRestoreTokenStatuses::SUCCESS->value:
                 return $this->fail('TOKEN_ALREADY_USED', 'The password has already changed');
             default:
                 return $this->fail('TOKEN_EXPIRED', 'Token has already expired');

@@ -10,8 +10,7 @@ use OZiTAG\Tager\Backend\User\Jobs\PasswordRestore\GetTokenJob;
 use OZiTAG\Tager\Backend\User\Models\UserResetToken;
 use OZiTAG\Tager\Backend\User\Operations\RestoreUserPasswordOperation;
 use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\CompletePasswordRestoreRequest;
-use OZiTAG\Tager\Backend\User\Utils\TagerUserConfig;
-use OZiTAG\Tager\Backend\Validation\Facades\Validation;
+use OZiTAG\Tager\Backend\Core\Validation\Facades\Validation;
 
 class CompleteRestorePasswordFeature extends Feature
 {

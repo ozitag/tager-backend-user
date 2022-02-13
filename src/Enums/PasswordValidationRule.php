@@ -2,12 +2,10 @@
 
 namespace OZiTAG\Tager\Backend\User\Enums;
 
-use OZiTAG\Tager\Backend\Core\Enums\Enum;
-
-class PasswordValidationRule extends Enum
+enum PasswordValidationRule:string
 {
-    const HasNumbers = 'has_numbers';
-    const HasLetters = 'has_letters';
-    const HasSymbols = 'has_symbols';
-    const HasCaseDiff = 'has_case_diff';
+    case HasNumbers = 'has_numbers';
+    case HasLetters = 'has_letters';
+    case HasSymbols = 'has_symbols';
+    case HasCaseDiff = 'has_case_diff';
 }
