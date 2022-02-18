@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
+use OZiTAG\Tager\Backend\User\Enums\PasswordValidationRule;
 use OZiTAG\Tager\Backend\User\Exceptions\UserPasswordPolicyException;
 use OZiTAG\Tager\Backend\User\Repositories\UserRepository;
 use OZiTAG\Tager\Backend\User\Repositories\UserResetTokenRepository;
