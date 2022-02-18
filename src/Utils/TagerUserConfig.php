@@ -13,13 +13,24 @@ class TagerUserConfig
 
     public static function getRestoreMode(): PasswordRestoreMode
     {
-        $result = self::config('restore.mode', PasswordRestoreMode::Link->value);
+        $result = self::config('restore.mode');
 
-        if (!in_array($result, PasswordRestoreMode::cases())) {
-            throw new \Exception('Invalid Restore Mode');
+        if(!$result){
+            return PasswordRestoreMode::Link;
         }
 
-        return PasswordRestoreMode::from($result);
+        if(is_string($result)){
+            $result = PasswordRestoreMode::tryFrom($result);
+            if(!$result){
+                throw new \Exception('Invalid restore mode');
+            }
+        }
+
+        if($result instanceof PasswordRestoreMode === false){
+            throw new \Exception('Invalid restore mode');
+        }
+
+     return $result;
     }
 
     public static function getPasswordValidationRules(): array
