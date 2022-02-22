@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\User\Enums;
 
-enum PasswordValidationRule:string
+enum PasswordValidationRule: string
 {
     case HasNumbers = 'has_numbers';
     case HasLetters = 'has_letters';
