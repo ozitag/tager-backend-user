@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\User\Features\PasswordRestore;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\Resources\SuccessResource;
 use OZiTAG\Tager\Backend\User\Utils\TagerUserConfig;
@@ -13,11 +14,6 @@ use OZiTAG\Tager\Backend\User\Requests\PasswordRestore\PasswordRestoreRequest;
 
 class RestorePasswordFeature extends Feature
 {
-    /**
-     * @param UserRepository $repository
-     * @param PasswordRestoreRequest $request
-     * @return SuccessResource
-     */
     public function handle(UserRepository $repository, PasswordRestoreRequest $request)
     {
         $user = $repository->findByEmail(
@@ -33,7 +29,7 @@ class RestorePasswordFeature extends Feature
 
         if(TagerUserConfig::getRestoreMode() == PasswordRestoreMode::Code){
             return new JsonResource([
-                'token' => $token ? $token->token : null
+                'token' => $token ? $token->token : Str::orderedUuid()
             ]);
         }
 

@@ -29,6 +29,10 @@ class GetTokenJob extends Job
         $token = $repository->findToken($request->get('token'));
 
         if(!$token) {
+            if (TagerUserConfig::getRestoreMode() === PasswordRestoreMode::Code) {
+                Validation::throw('code', __('tager-user::messages.invalid_code'));
+            }
+
             return $this->fail('TOKEN_NOT_FOUND', 'Token Not Found');
         }
 

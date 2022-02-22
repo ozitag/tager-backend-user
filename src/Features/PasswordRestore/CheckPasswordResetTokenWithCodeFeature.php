@@ -11,9 +11,6 @@ use OZiTAG\Tager\Backend\Core\Validation\Facades\Validation;
 
 class CheckPasswordResetTokenWithCodeFeature extends Feature
 {
-    /**
-     * @return SuccessResource
-     */
     public function handle(CheckRestoreTokenWithCodeRequest $request)
     {
         /** @var UserResetToken $token */
@@ -26,6 +23,6 @@ class CheckPasswordResetTokenWithCodeFeature extends Feature
             return new SuccessResource();
         }
 
-        return $token;
+        Validation::throw('token', 'Invalid Token');
     }
 }
