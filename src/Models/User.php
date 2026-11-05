@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\Contracts\OAuthenticatable;
 use Laravel\Passport\HasApiTokens;
 use OZiTAG\Tager\Backend\Auth\Contracts\UserMaybeBlockedContract;
 
@@ -20,7 +21,7 @@ use OZiTAG\Tager\Backend\Auth\Contracts\UserMaybeBlockedContract;
  * @property int $role_id
  * @property boolean $blocked
  */
-class User extends Authenticatable implements UserMaybeBlockedContract
+class User extends Authenticatable implements UserMaybeBlockedContract, OAuthenticatable
 {
     use Notifiable, HasApiTokens, SoftDeletes;
 
